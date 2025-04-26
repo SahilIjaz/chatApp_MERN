@@ -1,7 +1,9 @@
 const tokenGenerator = require("../utils/tokenGenerator");
 const catchAsync = require("../utils/catchAsync");
 const appError = require("../utils/appError");
+const Token = require("../models/tokenModel");
 const User = require("../models/userModel");
+
 //signUp
 exports.signUp = catchAsync(async (req, res, next) => {
   let user;
