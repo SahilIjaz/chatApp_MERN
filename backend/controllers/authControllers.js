@@ -1,4 +1,4 @@
-const tokenGenerator = require("../utils/tokenGenerator");
+const signInTokens = require("../utils/tokenGenerator");
 const catchAsync = require("../utils/catchAsync");
 const appError = require("../utils/appError");
 const Token = require("../models/tokenModel");
