@@ -6,7 +6,6 @@ const User = require("../models/userModel");
 exports.signUp = catchAsync(async (req, res, next) => {
   let user;
   const { email, password, confirmPassword } = req.body;
-
   if (!(email || password)) {
     return res.status(400).json({
       message: "Please provide account, email, password, confirmPassword.",
