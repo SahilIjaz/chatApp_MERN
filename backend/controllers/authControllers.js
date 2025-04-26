@@ -7,7 +7,7 @@ const User = require("../models/userModel");
 //signUp
 exports.signUp = catchAsync(async (req, res, next) => {
   let user;
-  const { email, password, confirmPassword } = req.body;
+  const { email, password, profilePic, name } = req.body;
   if (!(email || password)) {
     return res.status(400).json({
       message: "Please provide account, email, password, confirmPassword.",
@@ -29,8 +29,9 @@ exports.signUp = catchAsync(async (req, res, next) => {
   user = await User.create({
     email,
     password,
+    name,
+    profilePic,
     confirmPassword: password,
-    role: account,
   });
 
   console.log("USER CREATION PRIOR");
@@ -49,7 +50,7 @@ exports.signUp = catchAsync(async (req, res, next) => {
   user.otp = otp;
   user.isActive = true;
   await user.save();
-  const act = logInChecks(user);
+  //   const act = logInChecks(user);
   const newToken = await Token.create({
     person: user._id,
   });
@@ -64,7 +65,7 @@ exports.signUp = catchAsync(async (req, res, next) => {
   res.status(200).json({
     message: "OTP sent to your email address.",
     status: 200,
-    act,
+    // act,
     user,
   });
 });
@@ -115,13 +116,13 @@ exports.otpVerification = catchAsync(async (req, res, next) => {
   userToken.refreshToken = refreshToken;
   await userToken.save();
 
-  const act = logInChecks(user);
+  //   const act = logInChecks(user);
   res.status(200).json({
     message: "OTP verified and login successful.",
     status: 200,
     accessToken,
     refreshToken,
-    act,
+    // act,
     user,
   });
 });
@@ -151,7 +152,7 @@ exports.logIn = catchAsync(async (req, res, next) => {
   }
 
   const { accessToken, refreshToken } = await signInTokens(user._id);
-  const act = logInChecks(user);
+  //   const act = logInChecks(user);
 
   const existingToken = await Token.findOne({
     person: user._id,
@@ -177,7 +178,7 @@ exports.logIn = catchAsync(async (req, res, next) => {
     status: 200,
     accessToken,
     refreshToken,
-    act,
+    // act,
     user,
   });
 });
@@ -224,11 +225,11 @@ exports.resendOTP = catchAsync(async (req, res, next) => {
   user.otp = otp;
   user.otpExpiration = Date.now() + 1 * 60 * 1000;
   await user.save();
-  const act = logInChecks(user);
+  //   const act = logInChecks(user);
   res.status(200).json({
     message: "OTP resent to your email address",
     status: 200,
-    act,
+    // act,
     user,
   });
 });
