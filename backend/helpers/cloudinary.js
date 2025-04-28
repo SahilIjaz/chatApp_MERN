@@ -1,4 +1,3 @@
-const express = require("express");
 const { v2: cloudinary } = require("cloudinary");
 const { config } = require("dotenv");
 config();
