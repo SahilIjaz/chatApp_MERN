@@ -1,7 +1,7 @@
 const catchAsync = require("../utils/catchAsync");
 const appError = require("../utils/appError");
 const User = require("../models/userModel");
-import cloudinary from "../helpers/cloudinary";
+const cloudinary = require("../helpers/cloudinary");
 
 exports.updateProfile = catchAsync(async (req, res, next) => {
   const { profilePic } = req.body;

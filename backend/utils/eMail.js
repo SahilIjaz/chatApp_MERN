@@ -20,7 +20,7 @@ const sendEmail = async (options) => {
     const mailOptions = {
       from: process.env.EMAIL_USERNAME,
       to: options.email,
-      subject: "Welcome to Artify🎉",
+      subject: "Welcome to ChatApp",
       text: options.message,
       headers: {
         "X-Priority": "3",
