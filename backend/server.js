@@ -7,7 +7,7 @@ app.use(cors());
 dotenv.config({ path: "config.env" });
 const server = http.createServer(app);
 const port = process.env.PORT;
-const DB = process.env.DB_URL;
+const DB = process.env.DB;
 mongoose
   .connect(DB)
   .then((con) => console.log("Connection established successfully right now !"))
