@@ -1,3 +1,4 @@
+const express = require("express");
 const { v2: cloudinary } = require("cloudinary");
 const { config } = require("dotenv");
 config();
@@ -6,5 +7,3 @@ cloudinary.config({
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_APP_SECRET,
 });
-
-export default cloudinary;
