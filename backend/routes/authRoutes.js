@@ -24,4 +24,8 @@ router.route("/delete-me").post(authControllers.deleteMe);
 
 router.route("/log-out").post(authControllers.protect, authControllers.logOut);
 
+router
+  .route("/check-auth")
+  .get(authControllers.protect, authControllers.checkAuth);
+
 module.exports = router;

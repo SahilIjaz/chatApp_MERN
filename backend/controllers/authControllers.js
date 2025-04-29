@@ -457,3 +457,14 @@ exports.changePassword = catchAsync(async (req, res, next) => {
     user,
   });
 });
+
+exports.checkAuth = catchAsync(async (teq, es, next) => {
+  if (!req.user) {
+    return next(new appError("User is logged-out.", 404));
+  }
+  res.status(200).json({
+    message: "Current user is.",
+    status: 200,
+    user: req.user,
+  });
+});
