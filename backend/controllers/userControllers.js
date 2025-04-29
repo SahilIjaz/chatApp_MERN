@@ -5,7 +5,7 @@ const cloudinary = require("../helpers/cloudinary");
 
 exports.updateProfile = catchAsync(async (req, res, next) => {
   const { profilePic } = req.body;
-
+  console.log("cloudinary is : ", cloudinary);
   const response = await cloudinary.uploader.upload(profilePic);
   const user = await User.findByIdAndUpdate(
     req.user._id,
