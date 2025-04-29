@@ -11,6 +11,6 @@ router
   .get(authControllers.protect, messageControllers.getMessages);
 
 router
-  .route("/send-message/receiverId")
+  .route("/send-message/:receiverId")
   .post(authControllers.protect, messageControllers.sendMessage);
 module.exports = router;
