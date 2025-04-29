@@ -38,11 +38,9 @@ signToken = async (id) => {
     if (!user) {
       throw new appError("User not found", 404);
     }
-    console.log("user checkeds");
+
     const accessToken = this.generateAccessToken(user._id);
     const refreshToken = this.generateRefreshToken(user._id);
-    console.log("access token is : ", accessToken);
-    console.log("refresh token is : ", refreshToken);
     return { accessToken, refreshToken };
   } catch (err) {
     console.log(err.message);

@@ -4,22 +4,28 @@ const catchAsync = require("../utils/catchAsync");
 const appError = require("../utils/appError");
 const Token = require("../models/tokenModel");
 const User = require("../models/userModel");
-
+const util = require("util");
+const jwt = require("jsonwebtoken");
 //signUp
 exports.signUp = catchAsync(async (req, res, next) => {
   let user;
   const { email, password, profilePic, name } = req.body;
+  const normalizedEmail = email.trim().toLowerCase();
+
   if (!(email || password)) {
     return res.status(400).json({
       message: "Please provide account, email, password, confirmPassword.",
       status: 400,
     });
   }
-
+  console.log("email is : ", email);
   user = await User.findOne({
-    email,
+    email: normalizedEmail,
   });
+  console.log("user is : ", user);
+  console.log("befre cchecking user ");
   if (user) {
+    console.log("in the user block");
     return res.status(400).json({
       message: "User with this email already exists.",
       status: 400,
@@ -28,7 +34,7 @@ exports.signUp = catchAsync(async (req, res, next) => {
 
   console.log("BEFORE ROLE CHECKING .");
   user = await User.create({
-    email,
+    email: normalizedEmail,
     password,
     name,
     profilePic,
@@ -175,7 +181,7 @@ exports.logIn = catchAsync(async (req, res, next) => {
   await user.save();
 
   res.status(200).json({
-    message: `${user.role} logged in successfully.`,
+    message: `${user.name} logged in successfully.`,
     status: 200,
     accessToken,
     refreshToken,
@@ -237,6 +243,7 @@ exports.resendOTP = catchAsync(async (req, res, next) => {
 
 // logOut
 exports.logOut = catchAsync(async (req, res, next) => {
+  console.log("IN THE LOG OUT CONTROLLERs");
   const token = await Token.findOneAndDelete({
     $and: [
       // { deviceId: req.body.deviceId },
@@ -405,6 +412,7 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
 
 exports.protect = catchAsync(async (req, res, next) => {
   let token;
+  console.log("in the headers we have,", req.headers.authorization);
   if (
     req.headers.authorization &&
     req.headers.authorization.startsWith("Bearer")
@@ -414,7 +422,7 @@ exports.protect = catchAsync(async (req, res, next) => {
     if (!token) {
       return next(new appError("Log in in order to get Access!", 401));
     }
-
+    console.log("toekn is : ", token);
     const decoded = await util.promisify(jwt.verify)(
       token,
       process.env.JWT_SECRET

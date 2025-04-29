@@ -22,7 +22,7 @@ router.route("/delete-user").post(authControllers.deleteUser);
 
 router.route("/delete-me").post(authControllers.deleteMe);
 
-router.route("/log-out").post(authControllers.protect, authControllers.logOut);
+router.route("/log-out").get(authControllers.protect, authControllers.logOut);
 
 router
   .route("/check-auth")
