@@ -5,4 +5,8 @@ const authControllers = require("../controllers/authControllers");
 router
   .route("/side-users")
   .get(authControllers.protect, messageControllers.getSideUsers);
+
+router
+  .route("/all-messages/:user")
+  .get(authControllers.protect, messageControllers.getMessages);
 module.exports = router;
