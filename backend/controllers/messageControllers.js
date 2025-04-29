@@ -34,3 +34,29 @@ exports.getMessages = catchAsync(async (req, res, next) => {
     data: messages,
   });
 });
+
+exports.sendMessage = catchAsync(async (req, res, next) => {
+  const { text, image } = req.body;
+  const { receiverId } = req.params;
+  imgURL;
+  if (image) {
+    const response = await cloudinary.uploader.upload(profilePic);
+    imgURL = response.secure_url;
+  }
+  const message = await Message.create({
+    senderId: req.user._id,
+    receiverId: receiverId,
+    text,
+    image: imgURL,
+  });
+
+  if (!message) {
+    return next(new appError("Message was not created.", 400));
+  }
+
+  res.status(200).json({
+    message: "Message was created successfully.",
+    status: 200,
+    data: message,
+  });
+});
