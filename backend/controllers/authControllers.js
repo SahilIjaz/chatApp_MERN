@@ -467,7 +467,7 @@ exports.changePassword = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.checkAuth = catchAsync(async (teq, es, next) => {
+exports.checkAuth = catchAsync(async (req, res, next) => {
   if (!req.user) {
     return next(new appError("User is logged-out.", 404));
   }
