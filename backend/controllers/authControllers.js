@@ -1,4 +1,5 @@
 const signInTokens = require("../utils/tokenGenerator");
+const otpGenerator = require("../utils/otpGenerator");
 const catchAsync = require("../utils/catchAsync");
 const appError = require("../utils/appError");
 const Token = require("../models/tokenModel");
