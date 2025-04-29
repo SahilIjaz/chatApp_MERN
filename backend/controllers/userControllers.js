@@ -12,4 +12,13 @@ exports.updateProfile = catchAsync(async (req, res, next) => {
     { profilePic: response.secure_url },
     { new: true, runValidators: true }
   );
+  if (!user) {
+    return next(new appError(`User's profile was not updated.`, 400));
+  }
+
+  res.status(200).json({
+    message: "Profile updated successfully",
+    status: 200,
+    data: user,
+  });
 });
