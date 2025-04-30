@@ -1,7 +1,14 @@
 import React from 'react'
+
 import Navbar from './componenets/Navbar'
 
+import HomePage from './pages/HomePage'
+import SignUpPage from './pages/SignUpPage'
+import LogInPage from './pages/LogInPage'
+import SettingsPage from './pages/SettingsPage'
+import ProfilePage from './pages/ProfilePage'
 import {Routes,Route} from 'react-router-dom'
+
 const App = () => {
   return (
     <div>
