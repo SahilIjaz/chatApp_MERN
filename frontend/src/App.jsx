@@ -1,18 +1,20 @@
 import React from 'react'
+import Navbar from './componenets/Navbar'
 
+import {Routes,Route} from 'react-router-dom'
 const App = () => {
   return (
-    <>
-      <h1 className='text-red-500'>Hello</h1>
-      <button className="btn btn-active">Default</button>
-<button className="btn btn-active btn-primary">Primary</button>
-<button className="btn btn-active btn-secondary">Secondary</button>
-<button className="btn btn-active btn-accent">Accent</button>
-<button className="btn btn-active btn-info">Info</button>
-<button className="btn btn-active btn-success">Success</button>
-<button className="btn btn-active btn-warning">Warning</button>
-<button className="btn btn-active btn-error">Error</button>
-    </>
+    <div>
+   <Navbar/>
+      <Routes>
+        <Route path='/' element={<HomePage/>}/>
+        <Route path='/signup' element={<SignUpPage/>}/>
+        <Route path='/login' element={<LogInPage/>}/>
+        <Route path='/settings' element={<SettingsPage/>}/>
+        <Route path='/profile' element={<ProfilePage/>}/>
+      </Routes>
+  
+    </div>
   )
 }
 export default App
