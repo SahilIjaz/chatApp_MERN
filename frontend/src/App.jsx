@@ -10,8 +10,11 @@ import ProfilePage from './pages/ProfilePage'
 import {Routes,Route} from 'react-router-dom'
 
 import {useAuthStore} from './store/useAuthStore'
+import { useEffect } from 'react'
 const App = () => {
-  const {authUser}=useAuthStore()
+  const {authUser,checkAuth}=useAuthStore();
+  useEffect(()=>{checkAuth()},[checkAuth])
+  console.log('AUTH USER IS : ',authUser)
   return (
     <div>
    <Navbar/>
