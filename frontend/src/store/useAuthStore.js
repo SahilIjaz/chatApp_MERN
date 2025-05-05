@@ -11,7 +11,7 @@ export const useAuthStore = create((set) => ({
   checkAuth: async () => {
     try {
       const res = await axiosInstance.get("/auth/check-auth");
-      set({ authUser: res.data });
+      set({ authUser: res.data?.user || null });
     } catch (error) {
       console.log("ERROR IS IN CHECKAUTH FUNCTION FROM FRONTED:", error);
       set({ authUser: null });
