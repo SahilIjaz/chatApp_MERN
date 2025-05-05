@@ -159,7 +159,6 @@ exports.logIn = catchAsync(async (req, res, next) => {
   }
 
   const { accessToken, refreshToken } = await signInTokens(user._id);
-  //   const act = logInChecks(user);
 
   const existingToken = await Token.findOne({
     person: user._id,
@@ -179,6 +178,17 @@ exports.logIn = catchAsync(async (req, res, next) => {
 
   user.isActive = true;
   await user.save();
+
+  const tokenC = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+    expiresIn: "7d",
+  });
+
+  res.cookie("token", tokenC, {
+    httpOnly: true,
+    secure: false,
+    sameSite: "lax",
+    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+  });
 
   res.status(200).json({
     message: `${user.name} logged in successfully.`,
