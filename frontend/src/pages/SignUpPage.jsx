@@ -35,6 +35,12 @@ return <div className='min-h-screen grid lg:grid-clos-2'>
 
 
   </div>
+
+  <form onSubmit={handleSubmit} className='space-y-6'>
+
+
+    
+  </form>
 </div>
 
 
